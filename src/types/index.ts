@@ -3,6 +3,7 @@ export type HazardStatus = "待分派" | "待整改" | "整改中" | "待复查"
 export type AnomalyStatus = "草稿" | "待确认" | "已确认隐患" | "一般异常" | "已驳回";
 export type DeviceStatus = "在用" | "停用" | "维修中" | "报废";
 export type InspectionTimeTag = "正常" | "即将到期" | "已逾期";
+export type InspectionTemplateStatus = "草稿" | "启用" | "停用";
 export interface Device {
   id: string;
   code: string;
@@ -19,3 +20,26 @@ export interface Device {
 export interface InspectionTask { id: string; device: string; inspector: string; deadline: string; status: TaskStatus; timeTag: "正常" | "即将到期" | "已逾期"; }
 export interface Hazard { id: string; title: string; device: string; level: "高" | "中" | "低"; owner: string; deadline: string; status: HazardStatus; }
 export interface Anomaly { id: string; title: string; device: string; reporter: string; reportedAt: string; status: AnomalyStatus; }
+export interface InspectionTemplateItem {
+  id: string;
+  name: string;
+  content: string;
+  method: string;
+  criterion: string;
+  notesRequired: boolean;
+  photoRequired: boolean;
+  order: number;
+}
+export interface InspectionTemplate {
+  id: string;
+  code: string;
+  name: string;
+  category: Device["category"];
+  riskLevels: Array<"低" | "中" | "高">;
+  cycle: string;
+  status: InspectionTemplateStatus;
+  version: number;
+  createdBy: string;
+  updatedAt: string;
+  items: InspectionTemplateItem[];
+}
