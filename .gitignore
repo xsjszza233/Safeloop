@@ -5,3 +5,4 @@ out/
 .env*.local
 
 .next-build/
+tsconfig.tsbuildinfo
