@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import { MobileNavDrawer, type NavItem } from "./mobile-nav-drawer";
 
 const nav: NavItem[] = [
-  { label: "首页看板", href: "/dashboard", icon: "⌂" }, { label: "设备台账", href: "/devices", icon: "▣" }, { label: "我的点检任务", href: "/inspection-tasks", icon: "✓" }, { label: "扫码点检", href: "/scan", icon: "⌘" },
+  { label: "首页看板", href: "/", icon: "⌂" }, { label: "设备台账", href: "/devices", icon: "▣" }, { label: "我的点检任务", href: "/inspection-tasks", icon: "✓" }, { label: "扫码点检", href: "/scan", icon: "⌘" },
   { label: "异常管理", href: "/abnormal-records", icon: "!" }, { label: "隐患管理", href: "/hazard-records", icon: "◆" }, { label: "我的整改任务", href: "/rectifications", icon: "↺" }, { label: "EHS 复查", href: "/reviews", icon: "◎" }, { label: "检查模板", href: "/templates", icon: "▤" }, { label: "用户与权限", href: "/users", icon: "♙" },
 ];
-const titles: Record<string, string> = { dashboard: "首页看板", devices: "设备台账", "inspection-tasks": "我的点检任务", scan: "扫码点检", "abnormal-records": "异常管理", anomalies: "异常管理", "hazard-records": "隐患管理", hazards: "隐患管理", rectifications: "我的整改任务", reviews: "EHS 复查", templates: "检查模板管理", users: "用户与权限" };
+const titles: Record<string, string> = { "": "首页看板", dashboard: "首页看板", devices: "设备台账", "inspection-tasks": "我的点检任务", scan: "扫码点检", "abnormal-records": "异常管理", anomalies: "异常管理", "hazard-records": "隐患管理", hazards: "隐患管理", rectifications: "我的整改任务", reviews: "EHS 复查", templates: "检查模板管理", users: "用户与权限" };
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
