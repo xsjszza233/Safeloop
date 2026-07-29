@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@theme inline { --color-surface: #f7f9fc; --color-ink: #172033; --color-muted: #64748b; --color-primary: #167864; --color-primary-soft: #e7f5ef; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--color-surface); color: var(--color-ink); font-family: Arial, "Microsoft YaHei", sans-serif; }
+button, input, select { font: inherit; }
+a { color: inherit; text-decoration: none; }

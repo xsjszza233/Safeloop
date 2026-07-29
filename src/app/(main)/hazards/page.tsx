@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { PageHeader } from "@/components/page-header";
+import { StatusBadge } from "@/components/status-badge";
+import { hazards } from "@/data/mock-data";
+export default function HazardsPage() { return <><PageHeader title="隐患列表" description="仅经 EHS 管理员确认的异常，才会形成隐患并进入整改闭环。" /><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{hazards.map((hazard) => <Link href={`/hazards/${hazard.id}`} key={hazard.id} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-200"><div className="flex items-start justify-between gap-3"><div><p className="text-xs text-slate-400">{hazard.id}</p><h2 className="mt-1 font-bold text-slate-800">{hazard.title}</h2></div><StatusBadge variant={hazard.level === "高" ? "red" : hazard.level === "中" ? "amber" : "blue"}>{hazard.level}风险</StatusBadge></div><div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4 text-xs text-slate-500"><span>{hazard.device}</span><span>{hazard.status}</span></div></Link>)}</div></> }
