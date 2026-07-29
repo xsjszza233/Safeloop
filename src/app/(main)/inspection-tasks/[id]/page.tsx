@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { BackButton } from "@/components/back-button";
@@ -41,7 +42,7 @@ export default async function InspectionTaskDetailPage({ params }: { params: Pro
       <BackButton fallbackHref="/inspection-tasks" label="返回点检任务" />
       <PageHeader title={`点检任务 ${task.taskNumber}`} description={`${task.deviceName} · ${task.templateName}`} />
 
-      <div className="mb-5 flex flex-wrap items-center gap-2" aria-label="任务当前状态"><StatusBadge variant={taskStatusVariant(task.status)}>{task.status}</StatusBadge><StatusBadge variant={timeTagVariant(task.timeTag)}>{task.timeTag}</StatusBadge><span className="text-sm text-slate-500">{task.type}</span></div>
+      <div className="mb-5 flex flex-wrap items-center gap-2" aria-label="任务当前状态"><StatusBadge variant={taskStatusVariant(task.status)}>{task.status}</StatusBadge><StatusBadge variant={timeTagVariant(task.timeTag)}>{task.timeTag}</StatusBadge><span className="text-sm text-slate-500">{task.type}</span><Link href={`/inspection-tasks/${task.id}/execute`} className="ml-auto inline-flex min-h-11 items-center rounded-lg bg-[#167864] px-4 text-sm font-semibold text-white no-underline hover:bg-[#116653]">进入点检执行</Link></div>
 
       <div className="space-y-5">
         <div className="grid gap-5 xl:grid-cols-2">
@@ -52,7 +53,7 @@ export default async function InspectionTaskDetailPage({ params }: { params: Pro
 
         <Section title="关联点检模板"><dl className="grid gap-x-5 gap-y-4 text-sm sm:grid-cols-2 lg:grid-cols-3"><InfoItem label="模板编号" value={task.templateCode} /><InfoItem label="模板名称" value={task.templateName} /><InfoItem label="适用设备类别" value={template.category} /><InfoItem label="模板版本" value={`V${template.version}`} /><InfoItem label="检查周期" value={template.cycle} /><InfoItem label="检查项目数量" value={`${template.items.length} 项`} /></dl></Section>
 
-        <Section title="检查项目预览" description="以下内容为任务生成时关联的本地模拟模板项目，仅供查看；本阶段不提供开始点检或提交结果操作。">
+        <Section title="检查项目预览" description="以下内容为任务生成时关联的本地模拟模板项目。进入点检执行页后可进行前端演示填写。">
           <div className="hidden overflow-x-auto md:block"><table className="w-full min-w-[900px] text-left text-sm"><thead className="border-b border-slate-200 text-xs font-medium text-slate-500"><tr><th className="pb-3 pr-4">项目名称</th><th className="pb-3 pr-4">检查内容</th><th className="pb-3 pr-4">检查方法</th><th className="pb-3">判断标准</th></tr></thead><tbody className="divide-y divide-slate-100">{template.items.map((item) => <tr key={item.id}><td className="py-4 pr-4 font-medium text-slate-800">{item.order}. {item.name}</td><td className="py-4 pr-4 leading-6 text-slate-600">{item.content}</td><td className="py-4 pr-4 leading-6 text-slate-600">{item.method}</td><td className="py-4 leading-6 text-slate-600">{item.criterion}</td></tr>)}</tbody></table></div>
           <div className="space-y-3 md:hidden">{template.items.map((item) => <article key={item.id} className="rounded-lg border border-slate-200 p-4"><p className="font-semibold text-slate-800">{item.order}. {item.name}</p><DetailLine label="检查内容" value={item.content} /><DetailLine label="检查方法" value={item.method} /><DetailLine label="判断标准" value={item.criterion} /></article>)}</div>
         </Section>
