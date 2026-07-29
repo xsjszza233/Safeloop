@@ -4,6 +4,7 @@ export type AnomalyStatus = "草稿" | "待确认" | "已确认隐患" | "一般
 export type DeviceStatus = "在用" | "停用" | "维修中" | "报废";
 export type InspectionTimeTag = "正常" | "即将到期" | "已逾期";
 export type InspectionTemplateStatus = "草稿" | "启用" | "停用";
+export type InspectionTaskType = "常规点检" | "临时点检" | "维修后专项点检";
 export interface Device {
   id: string;
   code: string;
@@ -42,4 +43,20 @@ export interface InspectionTemplate {
   createdBy: string;
   updatedAt: string;
   items: InspectionTemplateItem[];
+}
+export interface InspectionManagementTask {
+  id: string;
+  taskNumber: string;
+  deviceId: string;
+  deviceName: string;
+  deviceCategory: Device["category"];
+  templateId: string;
+  templateName: string;
+  templateCode: string;
+  planDate: string;
+  deadline: string;
+  assignee: string;
+  type: InspectionTaskType;
+  status: TaskStatus;
+  timeTag: InspectionTimeTag;
 }

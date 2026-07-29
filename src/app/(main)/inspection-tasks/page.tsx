@@ -1,5 +1,6 @@
+import { InspectionTaskRegister } from "@/components/inspection-task-register";
 import { PageHeader } from "@/components/page-header";
-import { StatusBadge } from "@/components/status-badge";
-import { inspectionTasks } from "@/data/mock-data";
-import Link from "next/link";
-export default function TasksPage() { return <><PageHeader title="我的点检任务" description="查看并执行分配给当前检查人员的设备点检任务。" /><div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"><div className="overflow-x-auto"><table className="w-full min-w-[700px] text-left text-sm"><thead className="bg-slate-50 text-xs text-slate-500"><tr><th className="px-5 py-3">任务编号</th><th className="px-5 py-3">点检设备</th><th className="px-5 py-3">检查人员</th><th className="px-5 py-3">截止时间</th><th className="px-5 py-3">主状态</th><th className="px-5 py-3">时间标记</th></tr></thead><tbody>{inspectionTasks.map((task) => <tr key={task.id} className="border-t border-slate-100"><td className="px-5 py-4 font-semibold text-[#167864]"><Link href={`/inspection-tasks/${task.id}/check`}>{task.id}</Link></td><td className="px-5 py-4">{task.device}</td><td className="px-5 py-4">{task.inspector}</td><td className="px-5 py-4 text-slate-500">{task.deadline}</td><td className="px-5 py-4"><StatusBadge variant="blue">{task.status}</StatusBadge></td><td className="px-5 py-4"><StatusBadge variant={task.timeTag === "已逾期" ? "red" : task.timeTag === "即将到期" ? "amber" : "green"}>{task.timeTag}</StatusBadge></td></tr>)}</tbody></table></div></div></> }
+
+export default function InspectionTasksPage() {
+  return <><PageHeader title="点检任务" description="查看当前点检任务、时间标记和执行进度。本页数据仅用于演示。" /><InspectionTaskRegister /></>;
+}
