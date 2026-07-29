@@ -1,5 +1,11 @@
-import Link from "next/link";
+import { EquipmentRegister } from "@/components/equipment-register";
 import { PageHeader } from "@/components/page-header";
-import { StatusBadge } from "@/components/status-badge";
-import { devices } from "@/data/mock-data";
-export default function DevicesPage() { return <><PageHeader title="设备台账" description="集中维护设备基础信息、责任人和点检状态。" action="+ 新增设备" /><div className="mb-4 flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-4 sm:flex-row"><input placeholder="搜索设备名称或编号" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-emerald-500" /><select className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-500"><option>全部状态</option><option>正常</option><option>维修中</option></select></div><div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"><div className="overflow-x-auto"><table className="w-full min-w-[760px] text-left text-sm"><thead className="bg-slate-50 text-xs text-slate-500"><tr><th className="px-5 py-3 font-medium">设备名称</th><th className="px-5 py-3 font-medium">设备编号</th><th className="px-5 py-3 font-medium">类别</th><th className="px-5 py-3 font-medium">位置</th><th className="px-5 py-3 font-medium">责任人</th><th className="px-5 py-3 font-medium">状态</th></tr></thead><tbody>{devices.map((device) => <tr key={device.id} className="border-t border-slate-100 hover:bg-slate-50"><td className="px-5 py-4 font-semibold text-[#167864]"><Link href={`/devices/${device.id}`}>{device.name}</Link></td><td className="px-5 py-4 text-slate-500">{device.code}</td><td className="px-5 py-4 text-slate-600">{device.category}</td><td className="px-5 py-4 text-slate-600">{device.location}</td><td className="px-5 py-4 text-slate-600">{device.owner}</td><td className="px-5 py-4"><StatusBadge variant={device.status === "正常" ? "green" : "amber"}>{device.status}</StatusBadge></td></tr>)}</tbody></table></div></div></> }
+
+export default function DevicesPage() {
+  return (
+    <>
+      <PageHeader title="设备台账" description="基于本地模拟数据查看设备基础信息、点检状态和责任归属。" />
+      <EquipmentRegister />
+    </>
+  );
+}

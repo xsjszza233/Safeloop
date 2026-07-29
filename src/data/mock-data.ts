@@ -7,16 +7,38 @@ export const dashboardStats = [
   { label: "待复查隐患", value: "2", hint: "等待 EHS 复查记录", tone: "violet" },
 ];
 
-const deviceSeeds = [
-  ["数控加工中心", "CNC", "机械加工设备", "张伟", "A区 1号车间"], ["工业空压机", "AIR", "动力设备", "李娜", "B区 动力站"], ["激光切割机", "LAS", "特种设备", "王磊", "C区 3号车间"], ["实验室通风柜", "LAB", "实验室设备", "陈晨", "研发楼 2层"], ["叉车", "FLT", "物流设备", "赵敏", "仓储区"],
-  ["注塑成型机", "INJ", "机械加工设备", "张伟", "A区 2号车间"], ["行车", "CRN", "起重设备", "李娜", "B区 1号车间"], ["焊接机器人", "WEL", "自动化设备", "王磊", "C区 2号车间"], ["高低温试验箱", "TST", "实验室设备", "陈晨", "研发楼 1层"], ["配电柜", "PWR", "电气设备", "赵敏", "动力配电室"],
-  ["钻床", "DRL", "机械加工设备", "张伟", "A区 3号车间"], ["砂轮机", "GRD", "机械加工设备", "李娜", "B区 2号车间"], ["抛丸机", "SHT", "表面处理设备", "王磊", "C区 1号车间"], ["喷淋试验箱", "SPR", "实验室设备", "陈晨", "研发楼 1层"], ["电动搬运车", "PTK", "物流设备", "赵敏", "仓储区"],
-  ["冲床", "PRS", "机械加工设备", "张伟", "A区 3号车间"], ["真空泵", "VAC", "动力设备", "李娜", "B区 动力站"], ["热处理炉", "HTR", "特种设备", "王磊", "C区 热处理区"], ["气相色谱仪", "GAS", "实验室设备", "陈晨", "研发楼 3层"], ["堆高车", "STK", "物流设备", "赵敏", "仓储区"],
-  ["铣床", "MIL", "机械加工设备", "张伟", "A区 2号车间"], ["冷却塔", "CLT", "动力设备", "李娜", "B区 屋顶"], ["数显压力机", "DPR", "特种设备", "王磊", "C区 1号车间"], ["超净工作台", "CLB", "实验室设备", "陈晨", "研发楼 2层"], ["牵引车", "TOW", "物流设备", "赵敏", "仓储区"],
-  ["车床", "LAT", "机械加工设备", "张伟", "A区 1号车间"], ["干燥机", "DRY", "动力设备", "李娜", "B区 动力站"], ["压力容器", "VES", "特种设备", "王磊", "C区 热处理区"], ["生物安全柜", "BIO", "实验室设备", "陈晨", "研发楼 3层"], ["AGV 搬运车", "AGV", "物流设备", "赵敏", "仓储区"],
-] as const;
-
-export const devices: Device[] = deviceSeeds.map(([name, code, category, owner, location], index) => ({ id: `EQ-${String(index + 1).padStart(3, "0")}`, name, code: `${code}-${String(index + 1).padStart(2, "0")}`, category, owner, location, status: index === 2 || index === 16 ? "维修中" : "正常" }));
+export const devices: Device[] = [
+  { id: "EQ-001", code: "AC-001", name: "酸碱柜 A-01", category: "酸碱柜", department: "研发部", location: "研发楼 3层 化学实验室", owner: "林晓", status: "在用", riskLevel: "高", nextInspectionDate: "2026-08-02", inspectionTag: "即将到期" },
+  { id: "EQ-002", code: "AC-002", name: "酸碱柜 A-02", category: "酸碱柜", department: "研发部", location: "研发楼 2层 材料实验室", owner: "林晓", status: "在用", riskLevel: "中", nextInspectionDate: "2026-08-16", inspectionTag: "正常" },
+  { id: "EQ-003", code: "AC-003", name: "酸碱柜 A-03", category: "酸碱柜", department: "质量部", location: "质量检测室 西侧", owner: "周宁", status: "维修中", riskLevel: "中", nextInspectionDate: "2026-07-24", inspectionTag: "已逾期" },
+  { id: "EQ-004", code: "AC-004", name: "酸碱柜 A-04", category: "酸碱柜", department: "研发部", location: "研发楼 1层 样品间", owner: "陈璐", status: "停用", riskLevel: "低", nextInspectionDate: "2026-07-18", inspectionTag: "正常" },
+  { id: "EQ-005", code: "AC-005", name: "酸碱柜 A-05", category: "酸碱柜", department: "制造部", location: "试制车间 配液区", owner: "顾然", status: "在用", riskLevel: "高", nextInspectionDate: "2026-07-27", inspectionTag: "已逾期" },
+  { id: "EQ-006", code: "AC-006", name: "酸碱柜 A-06", category: "酸碱柜", department: "研发部", location: "研发楼 3层 试剂间", owner: "林晓", status: "报废", riskLevel: "低", nextInspectionDate: "—", inspectionTag: "正常" },
+  { id: "EQ-007", code: "FH-001", name: "通风橱 F-01", category: "通风橱", department: "研发部", location: "研发楼 3层 有机实验室", owner: "陈璐", status: "在用", riskLevel: "高", nextInspectionDate: "2026-07-28", inspectionTag: "已逾期" },
+  { id: "EQ-008", code: "FH-002", name: "通风橱 F-02", category: "通风橱", department: "研发部", location: "研发楼 3层 无机实验室", owner: "陈璐", status: "在用", riskLevel: "高", nextInspectionDate: "2026-08-01", inspectionTag: "即将到期" },
+  { id: "EQ-009", code: "FH-003", name: "通风橱 F-03", category: "通风橱", department: "质量部", location: "质量检测室 前处理区", owner: "周宁", status: "在用", riskLevel: "中", nextInspectionDate: "2026-08-19", inspectionTag: "正常" },
+  { id: "EQ-010", code: "FH-004", name: "通风橱 F-04", category: "通风橱", department: "研发部", location: "研发楼 2层 分析实验室", owner: "林晓", status: "维修中", riskLevel: "高", nextInspectionDate: "2026-07-26", inspectionTag: "已逾期" },
+  { id: "EQ-011", code: "FH-005", name: "通风橱 F-05", category: "通风橱", department: "制造部", location: "试制车间 检验区", owner: "顾然", status: "停用", riskLevel: "中", nextInspectionDate: "2026-07-20", inspectionTag: "正常" },
+  { id: "EQ-012", code: "FH-006", name: "通风橱 F-06", category: "通风橱", department: "研发部", location: "研发楼 1层 备用实验室", owner: "陈璐", status: "在用", riskLevel: "低", nextInspectionDate: "2026-08-12", inspectionTag: "正常" },
+  { id: "EQ-013", code: "PB-001", name: "配电箱 P-01", category: "配电箱", department: "制造部", location: "装配车间 东侧", owner: "高远", status: "在用", riskLevel: "高", nextInspectionDate: "2026-08-03", inspectionTag: "即将到期" },
+  { id: "EQ-014", code: "PB-002", name: "配电箱 P-02", category: "配电箱", department: "制造部", location: "装配车间 西侧", owner: "高远", status: "在用", riskLevel: "中", nextInspectionDate: "2026-08-23", inspectionTag: "正常" },
+  { id: "EQ-015", code: "PB-003", name: "配电箱 P-03", category: "配电箱", department: "行政部", location: "办公楼 1层 大厅", owner: "许宁", status: "在用", riskLevel: "中", nextInspectionDate: "2026-07-23", inspectionTag: "已逾期" },
+  { id: "EQ-016", code: "PB-004", name: "配电箱 P-04", category: "配电箱", department: "研发部", location: "研发楼 2层 机房", owner: "高远", status: "维修中", riskLevel: "高", nextInspectionDate: "2026-07-25", inspectionTag: "已逾期" },
+  { id: "EQ-017", code: "PB-005", name: "配电箱 P-05", category: "配电箱", department: "制造部", location: "试制车间 北侧", owner: "高远", status: "停用", riskLevel: "低", nextInspectionDate: "2026-07-15", inspectionTag: "正常" },
+  { id: "EQ-018", code: "PB-006", name: "配电箱 P-06", category: "配电箱", department: "行政部", location: "仓储区 值班室", owner: "许宁", status: "报废", riskLevel: "低", nextInspectionDate: "—", inspectionTag: "正常" },
+  { id: "EQ-019", code: "FE-001", name: "干粉灭火器 FE-01", category: "消防器材", department: "行政部", location: "办公楼 1层 东门", owner: "许宁", status: "在用", riskLevel: "中", nextInspectionDate: "2026-08-05", inspectionTag: "即将到期" },
+  { id: "EQ-020", code: "FE-002", name: "干粉灭火器 FE-02", category: "消防器材", department: "制造部", location: "装配车间 A通道", owner: "高远", status: "在用", riskLevel: "中", nextInspectionDate: "2026-08-29", inspectionTag: "正常" },
+  { id: "EQ-021", code: "FE-003", name: "消防栓箱 FE-03", category: "消防器材", department: "行政部", location: "办公楼 2层 西侧", owner: "许宁", status: "在用", riskLevel: "高", nextInspectionDate: "2026-07-22", inspectionTag: "已逾期" },
+  { id: "EQ-022", code: "FE-004", name: "消防栓箱 FE-04", category: "消防器材", department: "制造部", location: "仓储区 南门", owner: "顾然", status: "维修中", riskLevel: "中", nextInspectionDate: "2026-07-21", inspectionTag: "已逾期" },
+  { id: "EQ-023", code: "FE-005", name: "应急照明 FE-05", category: "消防器材", department: "行政部", location: "办公楼 地下车库", owner: "许宁", status: "停用", riskLevel: "低", nextInspectionDate: "2026-07-14", inspectionTag: "正常" },
+  { id: "EQ-024", code: "FE-006", name: "干粉灭火器 FE-06", category: "消防器材", department: "质量部", location: "质量检测室 门口", owner: "周宁", status: "在用", riskLevel: "中", nextInspectionDate: "2026-08-14", inspectionTag: "正常" },
+  { id: "EQ-025", code: "EL-001", name: "客梯 E-01", category: "电梯", department: "行政部", location: "办公楼 1号电梯厅", owner: "许宁", status: "在用", riskLevel: "高", nextInspectionDate: "2026-08-01", inspectionTag: "即将到期" },
+  { id: "EQ-026", code: "EL-002", name: "货梯 E-02", category: "电梯", department: "制造部", location: "仓储区 货梯间", owner: "顾然", status: "在用", riskLevel: "高", nextInspectionDate: "2026-07-24", inspectionTag: "已逾期" },
+  { id: "EQ-027", code: "EL-003", name: "客梯 E-03", category: "电梯", department: "研发部", location: "研发楼 电梯厅", owner: "林晓", status: "在用", riskLevel: "中", nextInspectionDate: "2026-08-20", inspectionTag: "正常" },
+  { id: "EQ-028", code: "EL-004", name: "货梯 E-04", category: "电梯", department: "制造部", location: "试制车间 货梯间", owner: "顾然", status: "维修中", riskLevel: "高", nextInspectionDate: "2026-07-19", inspectionTag: "已逾期" },
+  { id: "EQ-029", code: "EL-005", name: "客梯 E-05", category: "电梯", department: "行政部", location: "办公楼 东侧电梯厅", owner: "许宁", status: "停用", riskLevel: "中", nextInspectionDate: "2026-07-16", inspectionTag: "正常" },
+  { id: "EQ-030", code: "EL-006", name: "客梯 E-06", category: "电梯", department: "行政部", location: "办公楼 西侧电梯厅", owner: "许宁", status: "报废", riskLevel: "低", nextInspectionDate: "—", inspectionTag: "正常" },
+];
 
 export const inspectionTasks: InspectionTask[] = [
   { id: "IT-2026-071", device: "数控加工中心", inspector: "刘洋", deadline: "2026-07-30", status: "待执行", timeTag: "即将到期" }, { id: "IT-2026-072", device: "工业空压机", inspector: "刘洋", deadline: "2026-07-28", status: "执行中", timeTag: "正常" },
