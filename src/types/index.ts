@@ -5,6 +5,8 @@ export type DeviceStatus = "在用" | "停用" | "维修中" | "报废";
 export type InspectionTimeTag = "正常" | "即将到期" | "已逾期";
 export type InspectionTemplateStatus = "草稿" | "启用" | "停用";
 export type InspectionTaskType = "常规点检" | "临时点检" | "维修后专项点检";
+export type AbnormalSourceType = "点检异常" | "主动上报";
+export type AbnormalRecordStatus = "待确认" | "已确认隐患" | "一般异常" | "已驳回";
 export interface Device {
   id: string;
   code: string;
@@ -59,4 +61,30 @@ export interface InspectionManagementTask {
   type: InspectionTaskType;
   status: TaskStatus;
   timeTag: InspectionTimeTag;
+}
+export interface AbnormalRecord {
+  id: string;
+  abnormalNumber: string;
+  sourceType: AbnormalSourceType;
+  deviceId: string;
+  deviceCode: string;
+  deviceName: string;
+  deviceCategory: Device["category"];
+  area: string;
+  specificLocation: string;
+  taskId?: string;
+  taskNumber?: string;
+  inspectionRecordNumber?: string;
+  inspectionItemName?: string;
+  finder: string;
+  foundAt: string;
+  submittedAt: string;
+  description: string;
+  attachments: string[];
+  suggestedLevel: "低" | "中" | "高";
+  status: AbnormalRecordStatus;
+  reviewOpinion?: string;
+  reviewer?: string;
+  reviewedAt?: string;
+  hazardNumber?: string;
 }
