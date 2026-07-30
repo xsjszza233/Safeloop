@@ -8,6 +8,8 @@ export type InspectionTaskType = "常规点检" | "临时点检" | "维修后专
 export type AbnormalSourceType = "点检异常" | "主动上报";
 export type AbnormalRecordStatus = "待确认" | "已确认隐患" | "一般异常" | "已驳回";
 export type HazardRecordStatus = "待整改" | "整改中" | "待复查" | "已关闭";
+export type RectificationResult = "整改中" | "已提交" | "已完成";
+export type ReviewResult = "通过" | "驳回整改";
 export interface Device {
   id: string;
   code: string;
@@ -113,4 +115,22 @@ export interface HazardRecord {
   reviewer?: string;
   reviewedAt?: string;
   reviewOpinion?: string;
+}
+export interface RectificationRecord {
+  id: string;
+  hazardId: string;
+  rectificationOwner: string;
+  measure: string;
+  description: string;
+  submittedAt: string;
+  attachments: string[];
+  result: RectificationResult;
+}
+export interface ReviewRecord {
+  id: string;
+  hazardId: string;
+  reviewer: string;
+  reviewedAt: string;
+  result: ReviewResult;
+  opinion: string;
 }

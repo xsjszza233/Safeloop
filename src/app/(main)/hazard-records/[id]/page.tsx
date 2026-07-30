@@ -2,10 +2,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { BackButton } from "@/components/back-button";
+import { HazardClosurePanel } from "@/components/hazard-closure-panel";
 import { PageHeader } from "@/components/page-header";
 import { StatusBadge } from "@/components/status-badge";
 import { getAbnormalRecord } from "@/data/abnormal-record-data";
 import { getHazardRecord } from "@/data/hazard-record-data";
+import { getRectificationRecords, getReviewRecords } from "@/data/rectification-review-data";
 import type { HazardRecordStatus } from "@/types";
 
 function levelVariant(level: "低" | "中" | "高") {
@@ -28,6 +30,9 @@ export default async function HazardRecordDetailPage({ params }: { params: Promi
 
   if (!hazard || !abnormal) notFound();
 
+  const rectifications = getRectificationRecords(hazard.id);
+  const reviews = getReviewRecords(hazard.id);
+
   return (
     <>
       <BackButton fallbackHref="/hazard-records" label="返回隐患列表" />
@@ -44,6 +49,8 @@ export default async function HazardRecordDetailPage({ params }: { params: Promi
         <Section title="确认信息"><dl className="grid gap-x-5 gap-y-4 text-sm sm:grid-cols-2"><InfoItem label="确认人员" value={hazard.confirmedBy} /><InfoItem label="确认时间" value={hazard.confirmedAt} /><InfoItem label="确认意见" value={hazard.confirmationOpinion} wide /></dl></Section>
 
         <Section title="整改信息"><dl className="grid gap-x-5 gap-y-4 text-sm sm:grid-cols-2"><InfoItem label="整改责任人" value={hazard.rectificationOwner} /><InfoItem label="整改期限" value={hazard.rectificationDeadline} /><div><dt className="text-slate-500">当前状态</dt><dd className="mt-1"><StatusBadge variant={statusVariant(hazard.status)}>{hazard.status}</StatusBadge></dd></div><InfoItem label="整改措施" value={hazard.rectificationMeasure} wide /></dl></Section>
+
+        <HazardClosurePanel hazard={hazard} rectifications={rectifications} reviews={reviews} />
 
         {hazard.status === "已关闭" && <Section title="关闭信息"><dl className="grid gap-x-5 gap-y-4 text-sm sm:grid-cols-2"><InfoItem label="复查人员" value={hazard.reviewer ?? "—"} /><InfoItem label="复查时间" value={hazard.reviewedAt ?? "—"} /><InfoItem label="复查意见" value={hazard.reviewOpinion ?? "—"} wide /></dl></Section>}
       </div>
