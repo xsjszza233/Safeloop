@@ -12,7 +12,7 @@ export interface Device {
   id: string;
   code: string;
   name: string;
-  category: "酸碱柜" | "通风橱" | "配电箱" | "消防器材" | "电梯";
+  category: "酸碱柜" | "通风橱" | "实验辅助设备" | "配电箱" | "消防器材" | "电梯";
   department: string;
   location: string;
   owner: string;
