@@ -1,4 +1,5 @@
 import type { Device } from "@/types";
+import { getDeviceResponsibility } from "@/data/device-responsibility";
 
 type InspectionResult = "正常" | "发现异常";
 
@@ -34,33 +35,6 @@ const categorySettings: Record<Device["category"], { defaultCycle: string; templ
   电梯: { defaultCycle: "每月 1 次", template: "电梯现场巡查模板", description: "用于电梯运行状态、警示标识及现场异常的日常巡查。" },
 };
 
-export type DeviceInspectionTeam = {
-  team: string;
-  primaryInspector: string;
-  backupInspectors: string[];
-};
-
-const laboratoryTeams: Array<{ locationKeyword: string; team: DeviceInspectionTeam }> = [
-  { locationKeyword: "1层", team: { team: "研发中心实验一组", primaryInspector: "林晓", backupInspectors: ["陈璐"] } },
-  { locationKeyword: "2层", team: { team: "研发中心分析测试组", primaryInspector: "周宁", backupInspectors: ["何悦"] } },
-  { locationKeyword: "3层", team: { team: "研发中心化学与工艺组", primaryInspector: "陈璐", backupInspectors: ["顾然"] } },
-];
-
-const facilityTeams: Record<Extract<Device["category"], "配电箱" | "消防器材" | "电梯">, DeviceInspectionTeam> = {
-  配电箱: { team: "Facility设施管理·电气组", primaryInspector: "高远", backupInspectors: ["罗浩"] },
-  消防器材: { team: "Facility设施管理·消防设施组", primaryInspector: "许宁", backupInspectors: ["苏雯"] },
-  电梯: { team: "Facility设施管理·设备保障组", primaryInspector: "顾然", backupInspectors: ["许宁"] },
-};
-
-export function getDeviceInspectionTeam(device: Device): DeviceInspectionTeam {
-  if (device.category === "通风橱" || device.category === "酸碱柜" || device.category === "实验辅助设备") {
-    return laboratoryTeams.find(({ locationKeyword }) => device.location.includes(locationKeyword))?.team
-      ?? { team: "研发中心实验支持组", primaryInspector: "林晓", backupInspectors: ["陈璐"] };
-  }
-
-  return facilityTeams[device.category];
-}
-
 const anomalyRecords: Record<string, DeviceAnomalyRecord[]> = {
   "EQ-001": [
     { id: "AN-EQ001-01", title: "柜内试剂分类标签褪色", reportedAt: "2026-07-21", reporter: "林晓", status: "一般异常" },
@@ -94,7 +68,7 @@ export function getDeviceDetailData(device: Device) {
   const area = locationParts.slice(0, areaPartCount).join(" ");
   const specificLocation = locationParts.slice(areaPartCount).join(" ") || "未补充";
   const sequence = Number(device.id.replace("EQ-", ""));
-  const inspectionTeam = getDeviceInspectionTeam(device);
+  const responsibility = getDeviceResponsibility(device);
   const dates = ["2026-07-18", "2026-06-20", "2026-05-22", "2026-04-23", "2026-03-24"];
 
   return {
@@ -105,13 +79,17 @@ export function getDeviceDetailData(device: Device) {
     defaultCycle: setting.defaultCycle,
     actualCycle: device.riskLevel === "高" ? "每两周 1 次" : setting.defaultCycle,
     template: setting.template,
-    inspectionTeam,
+    inspectionTeam: {
+      team: responsibility.inspectionTeam,
+      primaryInspector: responsibility.primaryInspector,
+      backupInspectors: responsibility.backupInspectors,
+    },
     lastInspectionDate: dates[0],
     inspectionRecords: dates.map((inspectedAt, index) => ({
       id: `IR-${device.id}-${index + 1}`,
       inspector: index === 3 && sequence % 5 === 0
-        ? inspectionTeam.backupInspectors[0]
-        : inspectionTeam.primaryInspector,
+        ? responsibility.backupInspectors[0]
+        : responsibility.primaryInspector,
       inspectedAt,
       result: index === 2 && sequence % 3 === 1 ? "发现异常" : "正常",
       timeTag: index === 0 ? device.inspectionTag : "正常",

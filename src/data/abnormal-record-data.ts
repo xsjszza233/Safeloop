@@ -50,13 +50,22 @@ function getAreaAndSpecificLocation(location: string) {
   return { area: parts.slice(0, areaPartCount).join(" "), specificLocation: parts.slice(areaPartCount).join(" ") || "未补充" };
 }
 
+const pointInspectionFinders: Record<string, string> = {
+  "AB-2026-001": "周悦",
+  "AB-2026-005": "何悦",
+  "AB-2026-010": "许宁",
+  "AB-2026-012": "方宁",
+  "AB-2026-016": "高远",
+  "AB-2026-018": "许宁",
+};
+
 export const abnormalRecords: AbnormalRecord[] = abnormalSeeds.map((seed) => {
   const device = devices.find((item) => item.id === seed.deviceId);
   if (!device) throw new Error(`未找到异常关联设备：${seed.deviceId}`);
   const task = seed.taskId ? inspectionManagementTasks.find((item) => item.id === seed.taskId) : undefined;
   if (seed.taskId && !task) throw new Error(`未找到异常关联点检任务：${seed.taskId}`);
   const { area, specificLocation } = getAreaAndSpecificLocation(device.location);
-  return { ...seed, deviceCode: device.code, deviceName: device.name, deviceCategory: device.category, area, specificLocation, taskNumber: task?.taskNumber };
+  return { ...seed, finder: pointInspectionFinders[seed.id] ?? seed.finder, deviceCode: device.code, deviceName: device.name, deviceCategory: device.category, area, specificLocation, taskNumber: task?.taskNumber };
 });
 
 export function getAbnormalRecord(id: string) {

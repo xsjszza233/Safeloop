@@ -1,4 +1,5 @@
 import type { Anomaly, Device, Hazard, InspectionTask } from "@/types";
+import { getDeviceResponsibility } from "@/data/device-responsibility";
 
 export const dashboardStats = [
   { label: "待办点检任务", value: "10", hint: "其中 3 项即将到期", tone: "emerald" },
@@ -23,6 +24,7 @@ function createDevice(sequence: number, prefix: string, input: DeviceInput, timi
     id: `EQ-${String(sequence).padStart(3, "0")}`,
     code: `${prefix}-${String(sequence).padStart(3, "0")}`,
     ...input,
+    ...getDeviceResponsibility({ id: `EQ-${String(sequence).padStart(3, "0")}`, category: input.category, location: input.location }),
     ...timing,
   };
 }
@@ -145,11 +147,11 @@ export const devices: Device[] = [
 ];
 
 export const inspectionTasks: InspectionTask[] = [
-  { id: "IT-2026-071", device: "通风橱 F-01", inspector: "林晓", deadline: "2026-07-30", status: "待执行", timeTag: "即将到期" }, { id: "IT-2026-072", device: "酸碱柜 A-01", inspector: "林晓", deadline: "2026-07-28", status: "执行中", timeTag: "正常" },
-  { id: "IT-2026-073", device: "配电箱 P-01", inspector: "高远", deadline: "2026-07-25", status: "待执行", timeTag: "已逾期" }, { id: "IT-2026-074", device: "通风橱 F-02", inspector: "林晓", deadline: "2026-08-02", status: "已提交", timeTag: "正常" },
-  { id: "IT-2026-075", device: "消防器材配置点 FE-01", inspector: "许宁", deadline: "2026-08-05", status: "已完成", timeTag: "正常" }, { id: "IT-2026-076", device: "水浴锅 LAB-01", inspector: "林晓", deadline: "2026-07-31", status: "待执行", timeTag: "即将到期" },
-  { id: "IT-2026-077", device: "货梯 E-02", inspector: "顾然", deadline: "2026-07-23", status: "待执行", timeTag: "已逾期" }, { id: "IT-2026-078", device: "实验搅拌机 LAB-02", inspector: "林晓", deadline: "2026-08-08", status: "待执行", timeTag: "正常" },
-  { id: "IT-2026-079", device: "黏度测试仪 LAB-03", inspector: "林晓", deadline: "2026-08-01", status: "执行中", timeTag: "即将到期" }, { id: "IT-2026-080", device: "设备间控制柜 P-09", inspector: "高远", deadline: "2026-08-10", status: "待执行", timeTag: "正常" },
+  { id: "IT-2026-071", device: "通风橱 F-01", inspector: "周悦", deadline: "2026-07-30", status: "待执行", timeTag: "即将到期" }, { id: "IT-2026-072", device: "酸碱柜 A-01", inspector: "周悦", deadline: "2026-07-28", status: "执行中", timeTag: "正常" },
+  { id: "IT-2026-073", device: "配电箱 P-01", inspector: "高远", deadline: "2026-07-25", status: "待执行", timeTag: "已逾期" }, { id: "IT-2026-074", device: "通风橱 F-02", inspector: "方宁", deadline: "2026-08-02", status: "已提交", timeTag: "正常" },
+  { id: "IT-2026-075", device: "消防器材配置点 FE-01", inspector: "许宁", deadline: "2026-08-05", status: "已完成", timeTag: "正常" }, { id: "IT-2026-076", device: "水浴锅 LAB-01", inspector: "方宁", deadline: "2026-07-31", status: "待执行", timeTag: "即将到期" },
+  { id: "IT-2026-077", device: "货梯 E-02", inspector: "顾然", deadline: "2026-07-23", status: "待执行", timeTag: "已逾期" }, { id: "IT-2026-078", device: "实验搅拌机 LAB-02", inspector: "周悦", deadline: "2026-08-08", status: "待执行", timeTag: "正常" },
+  { id: "IT-2026-079", device: "黏度测试仪 LAB-03", inspector: "方宁", deadline: "2026-08-01", status: "执行中", timeTag: "即将到期" }, { id: "IT-2026-080", device: "设备间控制柜 P-09", inspector: "高远", deadline: "2026-08-10", status: "待执行", timeTag: "正常" },
 ];
 
 export const anomalies: Anomaly[] = [
