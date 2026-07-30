@@ -45,7 +45,7 @@ function laboratoryResponsibility(device: DeviceReference): DeviceResponsibility
         : device.category === "酸碱柜"
           ? "孙航"
           : auxiliaryEquipmentOwner(device.id),
-      inspectionTeam: "一层实验组 EHS Coordinator",
+      inspectionTeam: "一层实验组·部门EHS Coordinator",
       primaryInspector,
       backupInspectors: [primaryInspector === "周悦" ? "方宁" : "周悦"],
     };
@@ -60,7 +60,7 @@ function laboratoryResponsibility(device: DeviceReference): DeviceResponsibility
         : device.category === "酸碱柜"
           ? "吴敏"
           : auxiliaryEquipmentOwner(device.id),
-      inspectionTeam: "分析测试组 EHS Coordinator",
+      inspectionTeam: "分析测试组·部门EHS Coordinator",
       primaryInspector: "何悦",
       backupInspectors: ["曹宁"],
     };
@@ -75,7 +75,7 @@ function laboratoryResponsibility(device: DeviceReference): DeviceResponsibility
         : device.category === "酸碱柜"
           ? "唐悦"
           : auxiliaryEquipmentOwner(device.id),
-      inspectionTeam: "材料研发组 EHS Coordinator",
+      inspectionTeam: "材料研发组·部门EHS Coordinator",
       primaryInspector: "顾航",
       backupInspectors: ["陆晨"],
     };
@@ -89,7 +89,7 @@ function laboratoryResponsibility(device: DeviceReference): DeviceResponsibility
       : device.category === "酸碱柜"
         ? "冯倩"
         : auxiliaryEquipmentOwner(device.id),
-    inspectionTeam: "化学与工艺组 EHS Coordinator",
+    inspectionTeam: "化学与工艺组·部门EHS Coordinator",
     primaryInspector: "陈璐",
     backupInspectors: ["沈乐"],
   };

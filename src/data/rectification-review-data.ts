@@ -11,8 +11,8 @@ export const rectificationRecords: RectificationRecord[] = [
 ];
 
 export const reviewRecords: ReviewRecord[] = [
-  { id: "RV-2026-001", hazardId: "HZ-2026-004", reviewer: "陈小安（EHS Coordinator）", reviewedAt: "2026-07-30 15:30", result: "通过", opinion: "复查通过，通风橱操作区域已恢复整洁，隐患关闭。" },
-  { id: "RV-2026-002", hazardId: "HZ-2026-007", reviewer: "王宁（EHS Coordinator）", reviewedAt: "2026-07-25 16:20", result: "通过", opinion: "复查通过，提示标识清晰且固定可靠，隐患关闭。" },
+  { id: "RV-2026-001", hazardId: "HZ-2026-004", reviewer: "陈小安（EHS管理员）", reviewedAt: "2026-07-30 15:30", result: "通过", opinion: "复查通过，通风橱操作区域已恢复整洁，隐患关闭。" },
+  { id: "RV-2026-002", hazardId: "HZ-2026-007", reviewer: "王宁（EHS管理员）", reviewedAt: "2026-07-25 16:20", result: "通过", opinion: "复查通过，提示标识清晰且固定可靠，隐患关闭。" },
 ];
 
 export function getRectificationRecords(hazardId: string) {

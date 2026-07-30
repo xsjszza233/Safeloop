@@ -53,7 +53,7 @@ export function HazardClosurePanel({
     setDemoReview({
       id: "RV-DEMO",
       hazardId: hazard.id,
-      reviewer: "陈小安（EHS Coordinator）",
+      reviewer: "陈小安（EHS管理员）",
       reviewedAt: "刚刚（演示）",
       result,
       opinion: passed ? "演示复查通过：整改措施满足关闭条件。" : "演示复查驳回：请补充整改措施后再次提交。",
@@ -70,7 +70,7 @@ export function HazardClosurePanel({
       </section>
 
       <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-        <div className="flex flex-wrap items-center justify-between gap-3"><div><h2 className="text-base font-bold text-slate-900">EHS 复查</h2><p className="mt-1 text-sm text-slate-500">复查人员为模拟 EHS Coordinator。</p></div><StatusBadge variant={statusVariant(status)}>{status}</StatusBadge></div>
+        <div className="flex flex-wrap items-center justify-between gap-3"><div><h2 className="text-base font-bold text-slate-900">EHS 复查</h2><p className="mt-1 text-sm text-slate-500">复查人员为模拟 EHS管理员。</p></div><StatusBadge variant={statusVariant(status)}>{status}</StatusBadge></div>
         {allReviews.length === 0 ? <p className="mt-5 rounded-lg bg-slate-50 p-4 text-sm text-slate-500">暂无复查记录。{status === "待复查" ? "可进行演示复查。" : ""}</p> : <div className="mt-5 space-y-3">{allReviews.map((record) => <article key={record.id} className="rounded-lg border border-slate-200 p-4"><div className="flex flex-wrap items-start justify-between gap-3"><div><p className="font-semibold text-slate-800">{record.reviewer}</p><p className="mt-1 text-xs text-slate-500">{record.id} · {record.reviewedAt}</p></div><StatusBadge variant={resultVariant(record.result)}>{record.result}</StatusBadge></div><p className="mt-4 text-sm leading-6 text-slate-700">{record.opinion}</p></article>)}</div>}
         {status === "待复查" && <div className="mt-5 flex flex-wrap gap-3"><button type="button" onClick={() => review("通过")} className="min-h-11 rounded-lg bg-emerald-700 px-4 text-sm font-semibold text-white hover:bg-emerald-800">通过复查</button><button type="button" onClick={() => review("驳回整改")} className="min-h-11 rounded-lg border border-rose-200 px-4 text-sm font-semibold text-rose-700 hover:bg-rose-50">驳回整改</button></div>}
         {demoReview && <p className="mt-3 text-xs text-slate-500">本次复查为前端演示，不会写入隐患主数据。</p>}
