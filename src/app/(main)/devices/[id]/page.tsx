@@ -1,10 +1,12 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
 import { BackButton } from "@/components/back-button";
 import { DeviceDemoActions } from "@/components/device-demo-actions";
 import { PageHeader } from "@/components/page-header";
 import { StatusBadge } from "@/components/status-badge";
 import { getDeviceDetailData } from "@/data/device-detail-data";
+import { inspectionManagementTasks } from "@/data/inspection-task-data";
 import { devices } from "@/data/mock-data";
 import type { DeviceStatus, InspectionTimeTag } from "@/types";
 
@@ -47,6 +49,7 @@ export default async function DeviceDetailPage({ params }: { params: Promise<{ i
   if (!device) notFound();
 
   const detail = getDeviceDetailData(device);
+  const inspectionTask = inspectionManagementTasks.find((task) => task.deviceId === device.id && task.status !== "已取消") ?? inspectionManagementTasks.find((task) => task.deviceId === device.id);
 
   return (
     <>
@@ -58,6 +61,8 @@ export default async function DeviceDetailPage({ params }: { params: Promise<{ i
         <span className="text-sm text-slate-500">设备风险等级</span>
         <StatusBadge variant={riskVariant(device.riskLevel)}>{device.riskLevel}</StatusBadge>
       </div>
+
+      {inspectionTask && <Link href={`/inspection-tasks/${inspectionTask.id}/execute`} className="mb-5 inline-flex min-h-11 items-center rounded-lg bg-emerald-700 px-4 text-sm font-semibold text-white no-underline hover:bg-emerald-800">开始点检</Link>}
 
       <div className="space-y-5">
         <DeviceDemoActions />
